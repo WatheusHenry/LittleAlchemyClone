@@ -3,18 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interact.js Example</title>
+    <title>Drag and Drop</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <main>
-      <div class="combinationPlace"></div>
-        <div class="elements" id="elements-container"></div>
-      
+      <button onclick="clearDroppable()">Limpar Área de Drop</button>
+      <div
+        placeholder="teste"
+        id="droppableContainer"
+        class="droppable"
+        ondrop="drop(event)"
+        ondragover="allowDrop(event)"
+      ></div>
+      <div id="draggableContainer" class="elements"></div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11/dist/interact.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

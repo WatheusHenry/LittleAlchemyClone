@@ -1,35 +1,47 @@
 body {
-  margin: 0;
-  height: 100vh;
+
 }
 main {
-  border: 5px solid black;
-  display: flex;
-  width: 70rem;
-  height: 50rem;
+  width: 70%;
+  height: 90vh;
   margin: auto;
-}
-.combinationPlace {
-  width: 80%;
-  border: 5px solid green !important;
+  justify-content: center;
+  display: flex;
+  gap: 1rem;
 }
 .draggable {
-  z-index: 100;
   padding: 1rem;
-  width: 3rem;
-  height: 3rem;
-  color: #fff;
+  margin: 5px;
+  cursor: move;
+  width: 5rem;
+  z-index: 100;
+  position: absolute;
+}
+.droppable {
+  width: 50rem;
+  height: 90vh;
+  border: 2px dashed #aaa;
+  padding: 10px;
   text-align: center;
-  line-height: 100px;
-  user-select: none;
-  cursor: grabbing;
+  margin: auto;
+  position: relative;
+}
+img {
+  width: 5rem;
+  height: 5rem;
+  padding: 1rem;
 }
 .elements {
-    z-index: 100;
-
-  /* overflow-y: scroll; */
-  width: 20%;
-  border: 5px solid tomato;
+  border: 2px dashed #aaa;
+  width: 30%;
+  overflow-y: auto;
+  height: 90vh;
+  gap: 1rem;
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 1fr 1fr 1fr; /* Divide o espaço em 3 colunas iguais */
+}
+
+.teste{
+    border: 2px solid red;
+    border-radius: 100%;
 }
