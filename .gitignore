@@ -1,0 +1,24 @@
+# Node.js
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+
+# Configuração do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de configuração
+config.js
+
+# Outros
+.idea/
+*.suo
+*.user
+*.sln
+*.swp

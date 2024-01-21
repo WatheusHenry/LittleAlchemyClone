@@ -1,0 +1,25 @@
+{
+  "name": "newlittlealchemy",
+  "version": "1.0.0",
+  "description": "Copy of little alchemy game",
+  "main": "script.js",
+  "scripts": {
+    "test": "http-server",
+    "start": "live-server",
+    "http": "http-server"
+  },
+  "author": "MatheusHenry",
+  "license": "ISC",
+  "dependencies": {
+    "@interactjs/actions": "^1.10.26",
+    "@interactjs/auto-start": "^1.10.26",
+    "@interactjs/dev-tools": "^1.10.26",
+    "@interactjs/interact": "^1.10.26",
+    "@interactjs/modifiers": "^1.10.26",
+    "@interactjs/types": "^1.10.26",
+    "express": "^4.18.2",
+    "http-server": "^14.1.1",
+    "interactjs": "^1.10.26"
+  },
+  "keywords": []
+}
