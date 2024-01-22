@@ -23,7 +23,6 @@ var recipes = [
   ["wind", ["air", "energy"]],
   ["stone", ["air", "lava"]],
   ["atmosphere", ["air", "pressure"]],
-  ["cloud", ["air", "steam"]],
   ["earthquake", ["earth", "energy"]],
   ["gunpowder", ["dust", "fire"]],
   ["salt", ["fire", "sea"]],
