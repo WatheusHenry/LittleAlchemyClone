@@ -15,7 +15,6 @@ main {
   width: 5rem;
   z-index: 100;
   position: absolute;
-  border: 2px solid red;
   border-radius: 100%;
 }
 .droppable {
@@ -43,7 +42,4 @@ img {
   grid-template-rows: repeat(20, 1fr); /* 20 linhas de tamanho igual */
 }
 
-.teste {
-  border: 2px solid red;
-  border-radius: 100%;
-}
+
