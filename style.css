@@ -1,5 +1,4 @@
 body {
-
 }
 main {
   width: 70%;
@@ -16,6 +15,8 @@ main {
   width: 5rem;
   z-index: 100;
   position: absolute;
+  border: 2px solid red;
+  border-radius: 100%;
 }
 .droppable {
   width: 50rem;
@@ -38,10 +39,11 @@ img {
   height: 90vh;
   gap: 1rem;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* Divide o espaço em 3 colunas iguais */
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas de tamanho igual */
+  grid-template-rows: repeat(20, 1fr); /* 20 linhas de tamanho igual */
 }
 
-.teste{
-    border: 2px solid red;
-    border-radius: 100%;
+.teste {
+  border: 2px solid red;
+  border-radius: 100%;
 }

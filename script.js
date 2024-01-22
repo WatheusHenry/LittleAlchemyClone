@@ -1,54 +1,229 @@
-function drag(ev, isReDrag = false) {
-    ev.dataTransfer.setData("text/plain", ev.target.id);
-    if (isReDrag) {
-      ev.dataTransfer.setData("isReDrag", "true");
-    } else {
-      ev.dataTransfer.setData("isReDrag", "false");
+document.addEventListener("DOMContentLoaded", function () {
+  elementsContainerLoop();
+});
+
+function drag(ev) {
+  ev.dataTransfer.setData("text/plain", ev.target.id);
+  if (ev.target.parentElement.id === "droppableContainer") {
+    ev.dataTransfer.setData("isRedrag", "true");
+  } else {
+    ev.dataTransfer.setData("isRedrag", "false");
+  }
+}
+
+var recipes = [
+  ["pressure", ["air", "air"]],
+  ["energy", ["air", "fire"]],
+  ["dust", ["air", "earth"]],
+  ["lava", ["earth", "fire"]],
+  ["rain", ["air", "water"]],
+  ["mud", ["earth", "water"]],
+  ["steam", ["fire", "water"]],
+  ["sea", ["water", "water"]],
+  ["wind", ["air", "energy"]],
+  ["stone", ["air", "lava"]],
+  ["atmosphere", ["air", "pressure"]],
+  ["cloud", ["air", "steam"]],
+  ["earthquake", ["earth", "energy"]],
+  ["gunpowder", ["dust", "fire"]],
+  ["salt", ["fire", "sea"]],
+  ["volcano", ["earth", "lava"]],
+  ["granite", ["lava", "pressure"]],
+  ["obsidian", ["lava", "water"]],
+  ["brick", ["fire", "mud"]],
+  ["plant", ["earth", "rain"]],
+  ["flood", ["rain", "rain"]],
+  ["ocean", ["sea", "sea"]],
+  ["geyser", ["steam", "earth"]],
+  ["sky", ["air", "cloud"]],
+  ["sand", ["air", "stone"]],
+  ["wall", ["brick", "brick"]],
+  ["fog", ["cloud", "earth"]],
+  ["mountain", ["earth", "earthquake"]],
+  ["storm", ["cloud", "energy"]],
+  ["metal", ["fire", "stone"]],
+  ["explosion", ["fire", "gunpowder"]],
+  ["swamp", ["mud", "plant"]],
+  ["tsunami", ["earthquake", "ocean"]],
+  ["algae", ["ocean", "plant"]],
+  ["isle", ["ocean", "volcano"]],
+  ["wave", ["ocean", "wind"]],
+  ["cotton", ["cloud", "plant"]],
+  ["grass", ["earth", "plant"]],
+  ["tobacco", ["fire", "plant"]],
+  ["seaweed", ["ocean", "plant"]],
+  ["garden", ["plant", "plant"]],
+  ["moss", ["plant", "stone"]],
+  ["coal", ["plant", "pressure"]],
+  ["ash", ["energy", "volcano"]],
+  ["cloud", ["air", "steam"]],
+  ["eruption", ["energy", "volcano"]],
+  ["hurricane", ["energy", "wind"]],
+  ["rust", ["air", "metal"]],
+  ["sound", ["air", "wave"]],
+  ["atomic bomb", ["energy", "explosion"]],
+  ["grenade", ["explosion", "metal"]],
+  ["fireworks", ["explosion", "sky"]],
+  ["glass", ["fire", "sand"]],
+  ["sun", ["fire", "sky"]],
+  ["dew", ["fog", "grass"]],
+  ["bullet", ["gunpowder", "metal"]],
+  ["archipelago", ["isle", "isle"]],
+  ["steel", ["coal", "metal"]],
+  ["electricity", ["energy", "metal"]],
+  ["blade", ["metal", "stone"]],
+  ["mountain range", ["mountain", "mountain"]],
+  ["river", ["mountain", "water"]],
+  ["beach", ["ocean", "sand"]],
+  ["horizon", ["ocean", "sky"]],
+  ["flower", ["garden", "plant"]],
+  ["ivy", ["plant", "wall"]],
+  ["diamond", ["coal", "pressure"]],
+  ["sandstorm", ["energy", "sand"]],
+  ["clay", ["mud", "sand"]],
+  ["cactus", ["plant", "sand"]],
+  ["desert", ["sand", "sand"]],
+  ["quicksand", ["sand", "swamp"]],
+  ["dune", ["sand", "wind"]],
+  ["moon", ["sky", "stone"]],
+  ["boiler", ["metal", "steam"]],
+  ["sandstone", ["sand", "stone"]],
+  ["life", ["energy", "swamp"]],
+  ["house", ["wall", "wall"]],
+  ["pond", ["garden", "water"]],
+  ["bird", ["air", "life"]],
+  ["scissors", ["blade", "blade"]],
+  ["blender", ["blade", "electricity"]],
+  ["scythe", ["blade", "grass"]],
+  ["sword", ["blade", "metal"]],
+  ["golem", ["clay", "life"]],
+  ["pyramid", ["desert", "stone"]],
+  ["oasis", ["desert", "water"]],
+  ["ring", ["diamond", "metal"]],
+  ["human", ["earth", "life"]],
+  ["light bulb", ["electricity", "glass"]],
+  ["wire", ["electricity", "metal"]],
+  ["pottery", ["fire", "clay"]],
+  ["water lily", ["flower", "pond"]],
+  ["sunflower", ["flower", "sun"]],
+  ["glasses", ["glass", "glass"]],
+  ["mirror", ["glass", "metal"]],
+  ["telescope", ["glass", "sky"]],
+];
+
+var allRecipes = recipes.reduce((comb, [first, second]) => {
+  if (!comb.hasOwnProperty(second)) comb[second] = [];
+  comb[second].push(first);
+  console.log(comb[second]);
+  return comb;
+}, {});
+
+
+
+function combine(el1, el2) {
+    let recipe = [el1, el2].sort().join(",");
+    newElement = allRecipes[recipe];
+  
+    if (newElement && !initial.includes(newElement[0])) {
+      initial.push(newElement[0]);
+  
+      // Criar o primeiro elemento de imagem
+      const newImage1 = createNewElementImage(newElement);
+      elementsContainer.appendChild(newImage1);
+  
+      // Criar o segundo elemento de imagem
+      const newImage2 = createNewElementImage(newElement);
+      document.getElementById("droppableContainer").appendChild(newImage2);
+  
+      // Remover os elementos originais
+      const originalElement1 = document.getElementById(el1);
+      const originalElement2 = document.getElementById(el2);
+  
+      if (originalElement1) {
+        originalElement1.parentNode.removeChild(originalElement1);
+      }
+  
+      if (originalElement2) {
+        originalElement2.parentNode.removeChild(originalElement2);
+      }
     }
   }
+  
+
+function createNewElementImage(newElement) {
+  const newImage = document.createElement("img");
+  newImage.src = `public/img/${newElement}.png`;
+  newImage.id = newElement;
+  newImage.alt = newElement;
+  newImage.classList.add("dropped");
+  newImage.setAttribute("draggable", true);
+  newImage.ondragstart = function (event) {
+    drag(event, false);
+  };
+  newImage.style.gridArea = `auto / auto / span 1 / span 1`;
+  return newImage;
+}
+
+function areImagesClose(img1, img2, threshold) {
+  var rect1 = img1.getBoundingClientRect();
+  var rect2 = img2.getBoundingClientRect();
+
+  return !(
+    rect1.right < rect2.left - threshold ||
+    rect1.left > rect2.right + threshold ||
+    rect1.bottom < rect2.top - threshold ||
+    rect1.top > rect2.bottom + threshold
+  );
+}
+
+// Função para ser chamada quando duas imagens estiverem próximas
+function onImagesClose(img1, img2) {
+  combine(img1.id, img2.id);
+  // Coloque sua lógica aqui
+}
 
 function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text/plain");
-    var isReDrag = ev.dataTransfer.getData("isReDrag");
-    var draggedElement = document.getElementById(data);
-  
-    // Verifica se é um re-arraste
-    if (isReDrag) {
-      var droppableRect = ev.target.getBoundingClientRect();
-      var x = ev.clientX - droppableRect.left - draggedElement.width / 2;
-      var y = ev.clientY - droppableRect.top - draggedElement.height / 2;
-  
-      draggedElement.style.position = "absolute";
-      draggedElement.style.left = x + "px";
-      draggedElement.style.top = y + "px";
-  
-      ev.target.appendChild(draggedElement);
-    } else {
-      // Cria uma nova imagem para o primeiro arraste
-      var newImage = document.createElement("img");
-      newImage.src = draggedElement.src;
-      newImage.alt = draggedElement.alt;
-      newImage.id = data;
-      newImage.classList.add("draggable", "teste");
-      newImage.style.position = "absolute";
-  
-      var droppableRect = ev.target.getBoundingClientRect();
-      var x = ev.clientX - droppableRect.left - newImage.width / 2;
-      var y = ev.clientY - droppableRect.top - newImage.height / 2;
-  
-      newImage.style.left = x + "px";
-      newImage.style.top = y + "px";
-  
-      newImage.ondragstart = function (event) {
-        drag(event, true);
-      };
-  
-      ev.target.appendChild(newImage);
-    }
-  }
-  
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text/plain");
+  var isRedrag = ev.dataTransfer.getData("isRedrag") === "true";
+  var draggedElement = document.getElementById(data);
 
+  // Obtemos as coordenadas relativas ao contêiner de destino
+  var droppableRect = ev.target.getBoundingClientRect();
+  var x = ev.clientX - droppableRect.left - draggedElement.offsetWidth / 2;
+  var y = ev.clientY - droppableRect.top - draggedElement.offsetHeight / 2;
+
+  if (!isRedrag) {
+    // Se não é um re-arraste, cria uma nova imagem
+    var newImage = document.createElement("img");
+    newImage.src = draggedElement.src;
+    newImage.alt = draggedElement.alt;
+    newImage.classList.add("draggable", "dropped");
+    newImage.style.position = "absolute";
+    newImage.style.left = x + "px";
+    newImage.style.top = y + "px";
+    newImage.id = data; // Atribuir o mesmo ID da imagem original
+    newImage.setAttribute("draggable", true);
+    newImage.ondragstart = drag;
+
+    // Adiciona a nova imagem ao contêiner de destino
+    ev.target.appendChild(newImage);
+  } else {
+    // Se é um re-arraste, move a imagem
+    draggedElement.style.position = "absolute";
+    draggedElement.style.left = x + "px";
+    draggedElement.style.top = y + "px";
+  }
+
+  var droppedImage = document.getElementById(data);
+  var images = document.querySelectorAll("#droppableContainer .draggable");
+
+  images.forEach((img) => {
+    if (img.id !== droppedImage.id && areImagesClose(droppedImage, img, 10)) {
+      onImagesClose(droppedImage, img);
+    }
+  });
+}
 
 function allowDrop(ev) {
   ev.preventDefault();
@@ -172,29 +347,25 @@ var all = [
 // Container das divs
 const elementsContainer = document.getElementById("draggableContainer");
 
-// Função para iniciar o arraste
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
-}
-
 // Loop para criar as divs com imagens
-for (const filename of all) {
-  const div = document.createElement("div");
-  div.classList.add("divImage");
-  div.id = filename;  
-  div.setAttribute("draggable", true); 
-  div.ondragstart = drag; 
+function elementsContainerLoop() {
+  for (const filename of initial) {
+    const div = document.createElement("div");
+    div.classList.add("divImage");
+    div.id = filename;
+    div.setAttribute("draggable", true);
+    div.ondragstart = drag;
 
-  const img = document.createElement("img");
-  img.src = `public/img/${filename}.png`; 
-  img.alt = `${filename}`;
-  img.id = filename;
-  div.classList.add("draggable");
-  img.setAttribute("draggable", true);
-  img.ondragstart = drag;
-  img.ondragstart = function (event) {
-    drag(event, false);
-  };
+    const img = document.createElement("img");
+    img.src = `public/img/${filename}.png`;
+    img.alt = `${filename}`;
+    img.id = filename;
+    img.setAttribute("draggable", true);
+    img.ondragstart = drag;
+    img.ondragstart = function (event) {
+      drag(event, false);
+    };
 
-  elementsContainer.appendChild(img);
+    elementsContainer.appendChild(img);
+  }
 }
