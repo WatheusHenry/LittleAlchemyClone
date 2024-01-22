@@ -2,20 +2,19 @@ body {
 }
 main {
   width: 70%;
-  height: 90vh;
+  height: 100%;
   margin: auto;
   justify-content: center;
   display: flex;
   gap: 1rem;
 }
 .draggable {
-  padding: 1rem;
+  /* padding: 2rem;
   margin: 5px;
   cursor: move;
-  width: 5rem;
   z-index: 100;
   position: absolute;
-  border-radius: 100%;
+  border-radius: 100%; */
 }
 .droppable {
   width: 50rem;
@@ -23,23 +22,26 @@ main {
   border: 2px dashed #aaa;
   padding: 10px;
   text-align: center;
+  vertical-align: middle;
   margin: auto;
   position: relative;
+  
 }
 img {
-  width: 5rem;
-  height: 5rem;
-  padding: 1rem;
+  width: 4rem;
+  height: 4rem;
+  padding: 0.5rem;
+  position: relative;
 }
 .elements {
   border: 2px dashed #aaa;
-  width: 30%;
+  width: 15%;
   overflow-y: auto;
   height: 90vh;
   gap: 1rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 colunas de tamanho igual */
-  grid-template-rows: repeat(20, 1fr); /* 20 linhas de tamanho igual */
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(20, 1fr);
 }
 
 
